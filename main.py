@@ -1,11 +1,12 @@
 # coding: utf-8
+import os
 import time
 import tornado.web
 import tornado.websocket
 import tornado.ioloop
 from tornado.options import define, options, parse_command_line
 
-define("port", default = 3000, help = "run on the given port", type = int)
+define("port", default = os.environ.get('PORT', 3000), help = "run on the given port", type = int)
 
 class IndexHandler(tornado.web.RequestHandler):
     @tornado.web.asynchronous
