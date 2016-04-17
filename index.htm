@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   ws.addEventListener('message', function(evt) {
     var newMsg = document.createElement('li');
-    newMsg.innerHTML = evt.data;
+    newMsg.innerText = evt.data;
     msgs.appendChild(newMsg);
   });
 
