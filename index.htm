@@ -9,10 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
   var sayButton = document.getElementById('submit');
   var msgs = document.getElementById('msgs');
 
-  ws.addEventListener('message', function(evt) {
+  function newMessage(msg) {
     var newMsg = document.createElement('li');
-    newMsg.innerText = evt.data;
+    newMsg.innerText = msg;
     msgs.appendChild(newMsg);
+  }
+
+  ws.addEventListener('message', function(evt) {
+    newMessage(evt.data);
+  });
+
+  ws.addEventListener('close', function(evt) {
+    newMessage('SYSTEM: disconnected.');
   });
 
   sayButton.addEventListener('click', function(evt) {

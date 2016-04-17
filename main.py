@@ -29,7 +29,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
 
     def on_close(self):
-        self.write_message(u'SYSTEM: disconnected.')
         self.cons.remove(self)
 
 
