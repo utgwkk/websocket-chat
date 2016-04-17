@@ -3,7 +3,8 @@
 <body>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  var ws = new WebSocket('ws://quiet-retreat-52560.herokuapp.com/ws');
+  var wsurl = location.href.replace(/http/, 'ws') + 'ws';
+  var ws = new WebSocket(wsurl);
   var msgInput = document.getElementById('msg');
   var sayButton = document.getElementById('submit');
   var msgs = document.getElementById('msgs');
