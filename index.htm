@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>websocket-chat</title>
 </head>
 <body>
 <script>
@@ -33,10 +33,11 @@ document.addEventListener('DOMContentLoaded', function() {
     newMessage('SYSTEM: disconnected.');
     open();
   }
+
   function say(evt) {
     ws.send(msgInput.value);
     msgInput.value = "";
-  });
+  }
 
   open();
 });
