@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var msgInput = document.getElementById('msg');
   var sayButton = document.getElementById('submit');
   sayButton.addEventListener('click', say);
+  msgInput.addEventListener('keypress', function(event) {
+    if (event.keyCode == 0x0d) say();
+  });
   var msgs = document.getElementById('msgs');
 
   function open() {
@@ -42,10 +45,10 @@ document.addEventListener('DOMContentLoaded', function() {
   open();
 });
 </script>
-<form>
+<div>
 <input type="text" id="msg">
 <button type="button" id="submit">say</button>
-</form>
+</div>
 <hr>
 <ul id="msgs">
 </ul>
