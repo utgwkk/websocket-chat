@@ -1,1 +1,30 @@
-<H1>It works!</H1>
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var ws = new WebSocket('ws://localhost:3000/ws');
+  var msgInput = document.getElementById('msg');
+  var sayButton = document.getElementById('submit');
+  var msgs = document.getElementById('msgs');
+
+  ws.addEventListener('message', function(evt) {
+    var newMsg = document.createElement('li');
+    newMsg.innerHTML = evt.data;
+    msgs.appendChild(newMsg);
+  });
+
+  sayButton.addEventListener('click', function(evt) {
+    ws.send(msgInput.value);
+  });
+});
+</script>
+<form>
+<input type="text" id="msg">
+<button type="button" id="submit">say</button>
+</form>
+<hr>
+<ul id="msgs">
+</ul>
+</body>
+</html>
