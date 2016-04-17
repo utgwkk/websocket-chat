@@ -17,6 +17,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
     cons = set()
 
     def open(self):
+        self.write_message(u'SYSTEM: connected.')
         self.cons.add(self)
 
     def on_message(self, msg):
@@ -28,6 +29,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
 
     def on_close(self):
+        self.write_message(u'SYSTEM: disconnected.')
         self.cons.remove(self)
 
 
