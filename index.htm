@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html>
+<head>
+
+</head>
 <body>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   var wsurl = location.href.replace(/http/, 'ws') + 'ws';
-  var ws = new WebSocket(wsurl);
+  var ws = null;
   var msgInput = document.getElementById('msg');
   var sayButton = document.getElementById('submit');
+  sayButton.addEventListener('click', say);
   var msgs = document.getElementById('msgs');
+
+  function open() {
+    ws = new WebSocket(wsurl);
+    ws.addEventListener('message', onMessage);
+    ws.addEventListener('close', onClose);
+  }
 
   function newMessage(msg) {
     var newMsg = document.createElement('li');
@@ -15,17 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
     msgs.appendChild(newMsg);
   }
 
-  ws.addEventListener('message', function(evt) {
+  function onMessage(evt) {
     newMessage(evt.data);
-  });
+  }
 
-  ws.addEventListener('close', function(evt) {
+  function onClose(evt) {
     newMessage('SYSTEM: disconnected.');
+    open();
+  }
+  function say(evt) {
+    ws.send(msgInput.value);
+    msgInput.value = "";
   });
 
-  sayButton.addEventListener('click', function(evt) {
-    ws.send(msgInput.value);
-  });
+  open();
 });
 </script>
 <form>
