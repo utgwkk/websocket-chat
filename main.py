@@ -20,7 +20,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.cons.add(self)
 
     def on_message(self, msg):
-        self.write_message_for_all('{}: {}'.format(time.strftime("%y-%M-%d %H:%M:%S"), msg))
+        self.write_message_for_all(u'{}: {}'.format(time.strftime("%y-%M-%d %H:%M:%S"), msg))
 
     def write_message_for_all(self, msg):
         for con in self.cons:
