@@ -1,4 +1,5 @@
 # coding: utf-8
+import time
 import tornado.web
 import tornado.websocket
 import tornado.ioloop
@@ -12,9 +13,21 @@ class IndexHandler(tornado.web.RequestHandler):
         self.render('index.htm')
 
 class WebSocketHandler(tornado.websocket.WebSocketHandler):
+    cons = set()
+
+    def open(self):
+        self.cons.add(self)
+
     def on_message(self, msg):
-        print(msg)
-        self.write_message('You said: {}'.format(msg))
+        self.write_message_for_all('{}: {}'.format(time.strftime("%y-%M-%d %H:%M:%S"), msg))
+
+    def write_message_for_all(self, msg):
+        for con in self.cons:
+            con.write_message(msg)
+
+
+    def on_close(self):
+        self.cons.remove(self)
 
 
 app = tornado.web.Application([
