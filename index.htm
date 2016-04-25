@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function newMessage(msg) {
     var newMsg = document.createElement('li');
     newMsg.innerText = msg;
-    msgs.appendChild(newMsg);
+    msgs.insertBefore(newMsg, msgs.firstChild);
   }
 
   function onMessage(evt) {
